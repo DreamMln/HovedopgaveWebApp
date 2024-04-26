@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--JS VUE Script-->
+	<script src="https://unpkg.com/vue@3"></script>
+	<!-- Axios -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+	<!-- Bootstrap - Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!--My CSS-->
+	<link rel="stylesheet" href="style.css">
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="borger" class="container">
+		<div class="row">
+			<div class="col-4 p-1">
+				<blockquote class="blockquote">
+					<p class="mb-2 h2">Side om borger</p>
+					<hr>
+				</blockquote>
+				<ul>
+					<blockquote>
+						<p class="mb-0">Registreringer</p>
+						<li>Tlf.nr: {{ hentBorgerData.tlf }}</li>
+						<li>Navn: {{ hentBorgerData.navn }}</li>
+				</ul>
+						<!-- model med borger registreringer,
+				der mange registreringer på hver borger v-for,
+				og for pause, hentBorgerData.Array.ind - et step længere ind
+				pause: hentBorgerData.Array.Array.ind
+					     to v-for på en borger, nested array?-->
+						 <div>
+							<div v-for="regi in regiArray">
+								Ind registrering:  {{ regi.ind }}
+								<br>
+							    Ud registrering: {{ regi.ud }}
+								<br>
+								<br>
+								<p>Pauser</p>
+							<div v-for="pause in regi.borgerPauser">
+									Start: {{ pause.pauseStart}}
+									<br>
+									Slut: {{ pause.pauseSlut}}
+								</div>
+							</div>
+							</div>
+				</blockquote>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4 p-1">
+				<hr>
+				<!-- kaster samme id ud på dem allesammen, og kan ikke route med rigtigt id -->
+				<blockquote class="blockquote">
+					<p class="mb-0">Opret en note</p>
+				</blockquote>
+				<input v-model="addNote.datoTid" type="date" class="date" aria-describedby="basic-addon1">
+				<p style="white-space: pre-line;"></p>
+				<textarea v-model="addNote.noteOmBorger" placeholder="indtast tekst..."></textarea>
+				<br>
+				<button v-on:click="opretNote(this.borgerID)" class="btn btn-info glyphicon glyphicon-plus" type="button">
+					Opret
+				</button>
+				{{	addMessage  }}
+			</div>
+			<hr>
+
+		</div>
+		<div class="col-4 p-1">
+			<hr>
+			<blockquote class="blockquote">
+			<p class="mb-0">Noter</p>
+			</blockquote>
+			<ul>
+				<li v-for="noter in noteArray">
+					<!-- ID: {{noter.id}} -->
+					Note: {{noter.noteOmBorger}}
+					<br>
+					Dato: {{noter.datoTid}}
+				</li>
+			</ul>
+		</div>
+	</div>
+	</div>
+	</div>
+	<script src="borger.js"></script>
+</body>
+
+</html>
