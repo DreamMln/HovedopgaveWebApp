@@ -19,15 +19,14 @@
 	<div id="borger" class="container">
 		<div class="row">
 			<div class="col-4 p-1">
-				<blockquote class="blockquote">
-					<p class="mb-2 h2">Side om borger</p>
+					<h2 class="display-4">Side om borger</h2>
 					<hr>
-				</blockquote>
+				<blockquote class="blockquote">
+					<p class="mb-0">Registreringer</p>
+					</blockquote>
 				<ul>
-					<blockquote>
-						<p class="mb-0">Registreringer</p>
-						<li>Tlf.nr: {{ hentBorgerData.tlf }}</li>
-						<li>Navn: {{ hentBorgerData.navn }}</li>
+				<li>Tlf.nr: {{ hentBorgerData.tlf }}</li>
+				<li>Navn: {{ hentBorgerData.navn }}</li>
 				</ul>
 						<!-- model med borger registreringer,
 				der mange registreringer på hver borger v-for,
@@ -36,27 +35,32 @@
 					     to v-for på en borger, nested array?-->
 						 <div>
 							<div v-for="regi in regiArray">
-								Ind registrering:  {{ regi.ind }}
+								<p>Ind registrering:  </p>
+								<p>	{{ regi.ind }} </p>
 								<br>
-							    Ud registrering: {{ regi.ud }}
+								<p>Ud registrering:  </p>
+
+							    <p>{{ regi.ud }}</p>
 								<br>
 								<br>
-								<p>Pauser</p>
+								<blockquote class="blockquote">
+								<p class="mb-0">Pauser</p>
+								</blockquote>
 							<div v-for="pause in regi.borgerPauser">
-									Start: {{ pause.pauseStart}}
+									<p>Start:</p>
+									{{ pause.pauseStart}}
 									<br>
-									Slut: {{ pause.pauseSlut}}
+									<p>Slut:</p>
+									{{ pause.pauseSlut}}
 								</div>
 							</div>
 							</div>
-				</blockquote>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-4 p-1">
 				<hr>
-				<!-- kaster samme id ud på dem allesammen, og kan ikke route med rigtigt id -->
 				<blockquote class="blockquote">
 					<p class="mb-0">Opret en note</p>
 				</blockquote>
@@ -64,29 +68,41 @@
 				<p style="white-space: pre-line;"></p>
 				<textarea v-model="addNote.noteOmBorger" placeholder="indtast tekst..."></textarea>
 				<br>
-				<button v-on:click="opretNote(this.borgerID)" class="btn btn-info glyphicon glyphicon-plus" type="button">
+				<button v-on:click="opretNote(this.borgerID)"
+				class="btn btn-outline-info" type="button">
 					Opret
 				</button>
 				{{	addMessage  }}
-			</div>
-			<hr>
+				&nbsp; &nbsp;
 
+			</div>
 		</div>
-		<div class="col-4 p-1">
 			<hr>
 			<blockquote class="blockquote">
 			<p class="mb-0">Noter</p>
 			</blockquote>
-			<ul>
-				<li v-for="noter in noteArray">
-					<!-- ID: {{noter.id}} -->
-					Note: {{noter.noteOmBorger}}
-					<br>
-					Dato: {{noter.datoTid}}
-				</li>
-			</ul>
-		</div>
-	</div>
+			<div class="row">
+				<div v-for="noter in noteArray" class="col-sm-6">
+				  <div class="card">
+					<div class="card-body">
+					  <h5 class="card-title">
+						Note d. {{noter.datoTid}}
+					  </h5>
+					  <p class="card-text">
+						{{noter.noteOmBorger}}
+					</p>
+					{{ noter }}
+					<button v-on:click="sletNote(this.borgerID, this.noteID)"
+					class="btn btn-outline-danger">Slet
+				</button>
+				{{	deleteMessage  }}
+
+				</div>
+				  </div>
+				  {{	deleteMessage  }}
+
+				</div>
+			  </div>
 	</div>
 	</div>
 	<script src="borger.js"></script>

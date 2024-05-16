@@ -21,13 +21,15 @@ const borger = Vue.createApp({
 				noteOmBorger: "",
 				datoTid: "",
 			},
+			deleteNote: "",
 			//url, send id som parameter
 			hentBorgerData: "",
 			result: null,
 			//add the message html
 			addMessage: "",
-			borgerID: 0,
-			//id: 0,
+			deleteMessage: "",
+			id: 0,
+			noteID: 0,
 		}
     },
 
@@ -47,6 +49,7 @@ const borger = Vue.createApp({
 
 	},
 	methods: {
+		//Get borger by id
 		async getRoutingBorger(url, id){
 			try{
 				this.borgerID = id;
@@ -76,7 +79,7 @@ const borger = Vue.createApp({
 			try{
 				const response = await axios.post(url + "/" + id + "/BorgerRegistreringer", this.addRegi)
 				//response = await axios.post(baseUrl, this.addRegi)
-				this.addRegi = "Responskode: " + response.status + " " + response.statusText
+				this.addRegi = response.status + " " + response.statusText
 				this.getAllRegi()
 				console.log(this.regiArray)
 			}
@@ -109,6 +112,19 @@ const borger = Vue.createApp({
 			}
 			catch(ex){
 				{alert("Fejl i opret note " + ex.message)}
+			}
+		},
+		//borgerens id og derefter notens id
+		async sletNote(id, noteID){
+			console.log(this.deleteNote)
+			try{
+				const response = await axios.delete(baseUrl + "/" + id + "/BorgerNoter" + "?noteID=" + noteID , this.deleteNote)
+				this.deleteNote = "Responskode: " + response.status + " " + response.statusText
+				this.getAllNoter(baseUrl, id)
+				console.log(this.noteArray)
+			}
+			catch(ex){
+				{alert("Fejl! Slet en note " + ex.message)}
 			}
 		},
 	}

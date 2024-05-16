@@ -23,9 +23,9 @@
 				<h3 class="display-4">Liste over borgerne</h3>
 				<ul v-for="borger in borgerArray" class="list-group">
 					<a type="button" v-on:click="redirectToBorger(borger.id)">
-						<li class="list-group-item">Borger</li>
-						<li class="list-group-item">Navn: {{borger.navn}}</li>
-						<li class="list-group-item">Tlf: {{borger.tlf}}</li>
+						<li class="list-group-item baggrund">Borger</li>
+						<li class="list-group-item baggrund">Navn: {{borger.navn}}</li>
+						<li class="list-group-item baggrund">Tlf: {{borger.tlf}}</li>
 					</a>
 				</ul>
 			</div>

@@ -4,6 +4,13 @@ img {
 	opacity: 0.5;
   }
 
+.card{
+	background-color: rgb(212, 238, 212);
+}
+li.list-group-item.baggrund{
+	background-color: rgb(212, 238, 212);
+
+}
 /* .gradient-section {
 	background: linear-gradient(-45deg, #6026ba 0%, #351567 35%, #212529);
 	background-size: 400% 400%;
