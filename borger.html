@@ -39,22 +39,22 @@
 								<p>	{{ regi.ind }} </p>
 								<br>
 								<p>Ud registrering:  </p>
-
 							    <p>{{ regi.ud }}</p>
 								<br>
 								<br>
+							</div>
+
 								<blockquote class="blockquote">
 								<p class="mb-0">Pauser</p>
 								</blockquote>
-							<div v-for="pause in regi.borgerPauser">
+								<div v-for="pause in pauseArray">
 									<p>Start:</p>
 									{{ pause.pauseStart}}
 									<br>
 									<p>Slut:</p>
 									{{ pause.pauseSlut}}
 								</div>
-							</div>
-							</div>
+					</div>
 			</div>
 		</div>
 
@@ -74,35 +74,43 @@
 				</button>
 				{{	addMessage  }}
 				&nbsp; &nbsp;
-
 			</div>
 		</div>
-			<hr>
-			<blockquote class="blockquote">
-			<p class="mb-0">Noter</p>
-			</blockquote>
-			<div class="row">
-				<div v-for="noter in noteArray" class="col-sm-6">
-				  <div class="card">
+		<hr>
+		<div class="row">
+			<div class="col">
+				<h5>Udregn procent/statestik</h5>
+				<input v-model.number="num1" type="number" placeholder="Indtast tal">
+				<input v-model.number="num2" type="number" placeholder="Indtast tal">
+				<button type="button" v-on:click="add()">+</button>
+				<button type="button" v-on:click="subtract()">-</button>
+				<button type="button" v-on:click="multiply()">*</button>
+				<button type="button" v-on:click="divide()">/</button>
+				<button type="button" v-on:click="calculatePercentage()">%</button>
+				<br>
+				<p>Resultat:
+					{{ udregn }}</p>
+				</div>
+				</div>
+	<hr>
+	<blockquote class="blockquote">
+		<p class="mb-0">Noter</p>
+	</blockquote>
+		<div class="row">
+			<div v-for="noter in noteArray" class="col-sm-6">
+				<div class="card">
 					<div class="card-body">
-					  <h5 class="card-title">
-						Note d. {{noter.datoTid}}
-					  </h5>
-					  <p class="card-text">
-						{{noter.noteOmBorger}}
-					</p>
-					{{ noter }}
-					<button v-on:click="sletNote(this.borgerID, this.noteID)"
-					class="btn btn-outline-danger">Slet
-				</button>
+						ID:{{ noter.noteID}}
+					  	<h5 class="card-title">Note d. {{noter.datoTid}}</h5>
+					  	<p class="card-text">{{noter.noteOmBorger}}</p>
+						{{ noter }}
+		<button v-on:click="sletNote(this.borgerID, noter.noteID)"
+		class="btn btn-outline-danger">Slet</button>
 				{{	deleteMessage  }}
-
+					</div>
 				</div>
-				  </div>
-				  {{	deleteMessage  }}
-
-				</div>
-			  </div>
+			</div>
+		</div>
 	</div>
 	</div>
 	<script src="borger.js"></script>
