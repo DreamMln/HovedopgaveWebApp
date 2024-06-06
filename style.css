@@ -1,111 +1,58 @@
 
+body{
+		background-color: rgb(238, 233, 243);
+}
+a{
+	cursor: grab;
 
+}
 img {
 	opacity: 0.5;
   }
+  h1, h2, h3 {
+	text-shadow: 2px 2px #ffffff;
+  }
 
 .card{
-	background-color: rgb(212, 238, 212);
+	background-color: rgb(147, 127, 236);
 }
 li.list-group-item.baggrund{
-	background-color: rgb(212, 238, 212);
+	background-color: rgb(147, 127, 236);
 
 }
-/* .gradient-section {
-	background: linear-gradient(-45deg, #6026ba 0%, #351567 35%, #212529);
-	background-size: 400% 400%;
-	animation: gradient 15s linear infinite;
-	padding: 70px 0;
-}
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-.card.statistics-card {
-	position: relative;
-	background: none;
+.designBtn{
 	border: none;
-	padding: 2rem;
-}
-.card.statistics-card i {
-	position: absolute;
-	font-size: 10rem;
-	top: -3%;
-	opacity: 0.2;
-}
-@media only screen and (max-width: 921px) {
-	.card.statistics-card i {
-		font-size: 5rem;
-	}
-}
-.card.statistics-card i.fa-users {
-	color: #dedede;
-}
-.card.statistics-card i.fa-font {
-	color: #df151b;
-}
-.card.statistics-card i.fa-link {
-	color: #409fdc;
-}
-.card.statistics-card i.fa-coffee {
-	color: #301d15;
-}
-.card.statistics-card .info {
-	margin-left: 20%;
-	text-align: right;
-}
-.card.statistics-card .info span {
-	color: #fff;
-	font-weight: bold;
-	font-size: 12px;
-	text-transform: uppercase;
-}
-.card.statistics-card .info div {
-	font-size: 3rem;
-	font-weight: bold;
-	color: #ffae00;
-}
-.section-title {
-	padding-bottom: 40px;
-}
-.section-title h2 {
-	font-size: 14px;
-	font-weight: 500;
-	padding: 0;
-	line-height: 1px;
-	margin: 0 0 5px 0;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	color: #aaaaaa;
-	font-family: "Poppins", sans-serif;
-}
-.section-title h2:after {
-	content: "";
-	width: 120px;
-	height: 1px;
-	display: inline-block;
-	background: #fff;
-	margin: 4px 10px;
-}
-.section-title h1,
-.section-title p {
-	margin: 0;
-	font-weight: 700;
-	text-transform: uppercase;
-	font-family: "Poppins", sans-serif;
-	color: #3c1874;
-	font-size: 2rem;
-}
-.section-title h1 strong,
-.section-title p strong {
-	color: #dc8615;
-}
-Javascript/Jquery code */
+	background-color: rgb(215, 209, 243);
+	cursor: grab;
 
+}
+/* validation logic */
+.error {
+    color: red;
+    font-weight: bold;
+  }
+  .date {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .btn {
+    display: block;
+    margin-top: 10px;
+  }
+  .baggrund{
+	background-color: rgb(163, 144, 250);
+
+  }
+  .nyBaggrund{
+	background-color: rgb(252, 251, 183);
+  }
+  /*HTML INPUT FIELD BIGGER*/
+  .textboxChange
+  {
+	  height: 40px;
+	  font-size:14pt;
+  }
+  textarea{
+	width: 300px;
+
+  }

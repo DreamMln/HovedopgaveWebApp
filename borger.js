@@ -15,29 +15,34 @@ const borger = Vue.createApp({
 				pauseStart: "",
 				pauseSlut: ""
 			},
-			pauseArray: [],
             noteArray: [], //tomt array til at indeholde data omkring borgernoter
 			//json obj - skal hedde det samme
 			addNote:{
 				noteID: 0,
 				noteOmBorger: "",
-				datoTid: "",
+				datoTid: null,
 			},
+			error: '',
 			deleteNote: "",
-			//url, send id som parameter
 			hentBorgerData: "",
 			result: null,
 			//add the message html
 			addMessage: "",
 			deleteMessage: "",
 			id: 0,
-			//lommeregner/udregn procent
-			num1: 0,
-			num2: 0,
-			udregn: 0,
+			//opret navn
+			outputTlfData: "",
+			navn: "",
+			//udregn procent
+			samletTid: 0,
+        	pauseTid: 0,
+        	effektivitet: null,
+        	arbejdstid: 0,
+
+			showAllregi: false,
+			showAllpause: false
 		}
     },
-
 	created(){
 		// created() is a life cycle method, not an ordinary method, is called automatically when the page is reloaded
 		//uri - er en del af url, søger i min url efter ...
@@ -52,6 +57,24 @@ const borger = Vue.createApp({
 		this.getAllRegi(baseUrl, id)
 		this.getAllNoter(baseUrl, id)
 		this.getAllPauser(baseUrl, id)
+	},
+	computed: {
+		visibleRegiArray() {
+			if (this.showAllregi) {
+				return this.regiArray;
+			} else {
+				// Return a limited number of registration entries based on your desired limit
+				return this.regiArray.slice(0, 1);
+			}
+		},
+		visiblePauseArray() {
+			if (this.showAllpause) {
+				return this.pauseArray;
+			} else {
+				// Return a limited number of registration entries based on your desired limit
+				return this.pauseArray.slice(0, 3);
+			}
+		}
 	},
 	methods: {
 		//Get borger by id
@@ -122,6 +145,14 @@ const borger = Vue.createApp({
 		},
 		async opretNote(id){
 			console.log(this.addNote)
+				// validate logic
+				// Validate date input
+				if (!this.addNote.datoTid) {
+					this.error = 'Dato må ikke være tom!';
+					return;
+				  }
+				  //Clear alle tidligere error beskeder
+				  this.error = '';
 			try{
 				const response = await axios.post(baseUrl + "/" + id + "/BorgerNoter", this.addNote)
 				//this.addNote = "Responskode: " + response.status + " " + response.statusText
@@ -129,45 +160,53 @@ const borger = Vue.createApp({
 				console.log(this.noteArray)
 			}
 			catch(ex){
-				{alert("Fejl i opret note " + ex.message)}
+				{alert("Note skal være udfyldt korrekt! " + ex.message)}
 			}
 		},
-		//borgerens id og derefter notens id
-		async sletNote(id, noteID){
+		//sletter kun en gang, brug log flere steder
+		//borgerens id men kan ikke finde notens id - igang
+		async sletNote(noteID){
 			console.log(this.deleteNote)
 			try{
-				const response = await axios.delete(`${baseUrl}/${id}/BorgerNoter?noteID=${noteID}` , this.deleteNote)
-				this.deleteNote = `Responskode: ${response.status} ${response.status}`
+				// const noteID = this.deleteNote.noteID;
+				// if (!noteID) {
+				// 	throw new Error("noteID er ikke defineret!");
+				// }
+				const response = await axios.delete(baseUrl + "/" + this.hentBorgerData.id + "/BorgerNoter" + "?noteID=" + noteID)
+				console.log(response)
+
+				this.deleteNote = "Responskode:" + response.status + response.statusText;
+				console.log("Responskode:" + response.status + response.statusText)
+
 				if(response.status === 200){
-					await this.getAllNoter(baseUrl, id)
+					await this.getAllNoter(baseUrl, this.hentBorgerData.id)
 					console.log(this.noteArray)
 				}else{
-					console.error(`kunne ikke slette note: ${response.statusText}`)
+					console.error("kunne ikke slette note: " + response.statusText)
 				}
 			}
 			catch(ex){
 				{alert("Fejl! Slet en note " + ex.message)}
 			}
 		},
-		//lommeregner
-		add() {
-			this.udregn = this.num1 + this.num2;
-		},
-		subtract() {
-			this.udregn = this.num1 - this.num2;
-		},
-		multiply() {
-			this.udregn = this.num1 * this.num2;
-		},
-		divide() {
-			if (this.num2 === 0) {
-			alert("Kan ikke dividere med nul!");
-			} else {
-			this.udregn = this.num1 / this.num2;
-			}
-		},
-		calculatePercentage() {
-			this.udregn = (this.num1 * this.num2) / 100;
+		//https://www.roskilde.dk/da-dk/forside/
+		beregnEffektivitet() {
+			this.arbejdstid = this.samletTid - this.pauseTid;
+			this.effektivitet = (this.arbejdstid / this.samletTid) * 100;
+			// toFixed(2); Afrunder til 2 decimaler
+			this.effektivitet = this.effektivitet.toFixed(2);
+		  },
+		//PO der skriver borgerens navn ind
+		async navnInput() {
+			console.log(this.hentBorgerData)
+			try{
+				await axios.put(baseUrl + "/" + this.hentBorgerData.id + "?navn=" + this.hentBorgerData.navn, this.hentBorgerData)
+				console.log(baseUrl + "/" + this.hentBorgerData.id + "?navn=" + this.hentBorgerData.navn, this.hentBorgerData)
+				this.getRoutingBorger(baseUrl, this.hentBorgerData.id)
+				alert("Navnet er opdateret til - " + this.hentBorgerData.navn + " ");
+			}catch(error){
+            alert("Fejl! I Opret navn!" + error.message)
+		}
 		},
 	}
 })

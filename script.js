@@ -15,8 +15,7 @@ const app = Vue.createApp({
 		  //use a helpermethod - DRY
 		  this.getAllHelper(baseUrl)
 		},
-		async getAllHelper(url){ //helper method
-				//get data from the baseurl
+		async getAllHelper(url){ //helper method //get data from the baseurl
 		try{
 		  //response with axios
 		  const response = await axios.get(url)
